@@ -1,13 +1,18 @@
 import { call, put } from 'redux-saga/effects';
 import apiMethod from '@/pages/api/apiMethod';
 import {
+  doAddProductResponse,
   doAddResponse,
   doDeleteProduct,
   doDeleteResponse,
   doGetCategoriesResponse,
+  doGetDelProductResponse,
   doGetProductResponse,
+  doGetResponseLogin,
   doGetUserResponse,
+  doProductByIdResponse,
   doRequestGetProduct,
+  doUpdateProductResponse,
   doUpdateResponse,
 } from '../action/ActionReducer';
 
@@ -60,9 +65,9 @@ function* handleGetAllProduct():any{
 function* handleDelProduct(action:any):any{
   try {
     const result = yield call(apiMethod.deleteProduct,action.payload);
-    yield put(doDeleteProduct(result.data))
+    yield put(doGetDelProductResponse(result.data))
   } catch (error:any) {
-    yield put(doDeleteProduct({message: error.message, status: 400}))
+    yield put(doGetDelProductResponse({message: error.message, status: 400}))
   }
 }
 
@@ -76,4 +81,40 @@ function* handleGetAllCategories():any{
   }
 }
 
-export { handleGetAllUser, handleAddUser, handleUpdateUser, handleDelUser, handleGetAllProduct, handleDelProduct , handleGetAllCategories};
+function* handleAddProduct(action:any):any {
+  try {
+    const result = yield call(apiMethod.createProduct, action.payload);
+    yield put(doAddProductResponse(result.data));
+  } catch (error:any) {
+    yield put(doAddProductResponse({ message: error.message, status: 400 }));
+  }
+}
+
+function* handleUpdateProduct(action:any):any {
+  try {
+    const result = yield call(apiMethod.updateProduct, action.payload);
+    yield put(doUpdateProductResponse(result.data));
+  } catch (error:any) {
+    yield put(doUpdateProductResponse({ message: error.message, status: 400 }));
+  }
+}
+
+function* handleGetProductById(action:any):any{
+  try{
+    yield put(doProductByIdResponse(action))
+  }catch(error:any){
+    yield put(doProductByIdResponse({message:error.message,status:400}))
+  }
+}
+
+function* handleLogin(action: any): any{
+  try {
+    const res = yield call(apiMethod.login,action.payload)
+    localStorage.setItem('access_token', res.data.access_token);
+    yield put(doGetResponseLogin(res.data))
+  } catch (error:any) {
+    yield put(doGetResponseLogin({message: error.message}))
+  }
+}
+
+export { handleGetAllUser,handleLogin, handleAddUser, handleUpdateUser, handleDelUser, handleGetAllProduct, handleDelProduct , handleGetAllCategories,handleAddProduct,handleUpdateProduct,handleGetProductById};

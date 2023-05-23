@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import Content from "../content";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import ConfirmDelete from "../ConfirmDelete";
 import { doDeleteProduct, doRequestGetProduct } from "../redux/action/ActionReducer";
+import { toast } from "react-toastify";
 
 const Product = () => {
+  const router = useRouter()
   const [isDelete, setIsDelete] = useState(false);
   const [whatToDelete, setWhatToDelete] = useState();
 
@@ -18,6 +21,11 @@ const Product = () => {
   // console.log(products);
 
   useEffect(() => {
+    setTimeout(()=>{
+      if (message) {
+          toast.success(message);
+        }
+  },30)
     dispatch(doRequestGetProduct())
   }, [refresh]);
 
@@ -29,16 +37,11 @@ const Product = () => {
   const deleteDataa = () => {
     // dispatch(delete_product(whatToDelete.id));
     dispatch(doDeleteProduct(whatToDelete.id))
-    
     setIsDelete(false);
   };
 
   const goToEdit = (item:any) => {
-    // navigate(`/edit-product/${item.id}`, {
-    //   state: {
-    //     products: item,
-    //   },
-    // });
+    router.push(`products/edit-product/${item.id}`)
   };
 
   return (

@@ -1,5 +1,6 @@
 import React, { LegacyRef, forwardRef } from 'react'
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import {
     HomeIcon,
@@ -7,21 +8,24 @@ import {
     TagIcon,
     CubeIcon,
   } from '@heroicons/react/24/solid';
-import { useRouter } from 'next/router';
 
 const Sidebar = forwardRef(({},ref: LegacyRef<HTMLDivElement>)=> {
-    const router = useRouter()
+  const router = useRouter()
+  const handleLogout = () => {
+    localStorage.removeItem('access_token')
+    router.push('/login')
+  }
     // const {pathname} = useLocation()
     const listMenu = [
         { to: '/', path: '/', icon: <HomeIcon />, name: 'Home' },
-        { to: 'users', path: '/users', icon: <UserIcon />, name: 'User' },
+        { to: '/users', path: '/users', icon: <UserIcon />, name: 'User' },
         {
-          to: 'categories',
+          to: '/categories',
           path: '/categories',
           icon: <TagIcon />,
           name: 'Category',
         },
-        { to: 'products', path: '/products', icon: <CubeIcon />, name: 'Product' },
+        { to: '/products', path: '/products', icon: <CubeIcon />, name: 'Product' },
       ]
 
   return (
@@ -32,11 +36,11 @@ const Sidebar = forwardRef(({},ref: LegacyRef<HTMLDivElement>)=> {
       </p>
     </div>
 
-    <div className="flex flex-col">
+    <div className="flex flex-col mx-5">
       {listMenu.map((arr) => (
         <Link href={`${arr.to}`}>
           <div
-            className={`pl-6 py-3 mx-5 rounded text-center cursor-pointer mb-3 flex items-center transition-colors ${
+            className={`pl-6 py-3 rounded text-center cursor-pointer mb-3 flex items-center transition-colors ${
               router.pathname === arr.path
                 ? 'bg-purple-100 text-purple-500'
                 : 'text-gray-400 hover:bg-purple-100 hover:text-purple-500'
@@ -49,6 +53,7 @@ const Sidebar = forwardRef(({},ref: LegacyRef<HTMLDivElement>)=> {
           </div>
         </Link>
       ))}
+            <button className='mt-4 px-4 py-2 w-3/4 border border-transparent rounded-md bg-purple-200 text-sm font-medium text-purple-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1' onClick={handleLogout}>Logout</button>
     </div>
   </div>
   )

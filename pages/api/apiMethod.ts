@@ -30,8 +30,8 @@ const createProduct = (data:any) => {
   });
 };
 
-const updateProduct = (data:any, id:any) => {
-  return axios.patch(`/products/${id}`, data, {
+const updateProduct = (data:any) => {
+  return axios.patch(`/products/${data.id}`, data, {
     headers: {
       'content-type': 'multipart/form-data',
     },
@@ -46,6 +46,10 @@ const getProductCat = () => {
   return axios.get('/product-categories');
 };
 
+const login = (data:any) => {
+  return axios.post('/login',data)
+}
+
 export default {
   findAll,
   create,
@@ -57,4 +61,5 @@ export default {
   updateProduct,
   deleteProduct,
   getProductCat,
+  login
 };

@@ -4,7 +4,8 @@ import { Combobox, Transition } from '@headlessui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { toast } from 'react-toastify';
-import { doRequestGetCategory } from '../redux/action/ActionReducer';
+import { useRouter } from 'next/router';
+import { doAddProduct, doRequestGetCategory } from '../redux/action/ActionReducer';
 
 const AddProduct = () => {
   const { categories, message, refresh } = useSelector(
@@ -25,6 +26,7 @@ console.log(categories);
         );
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   // console.log(selected.id);
 
@@ -52,10 +54,9 @@ console.log(categories);
     formData.append('price', data.price);
 
     toast.success('sukses');
-    // dispatch();
-    // setTimeout(() => {
-    //   navigate('/products');
-    // }, 5000);
+    // console.log(...formData)
+    dispatch(doAddProduct(formData));
+    router.push('/products');
   };
 
   useEffect(() => {

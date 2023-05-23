@@ -6,21 +6,12 @@ import productReducers from '../reducer/productReducer';
 import { combineReducers } from '@reduxjs/toolkit';
 import rootSaga from '../saga';
 import productCategoryReducers from '../reducer/productCategoryReducer';
-
-// import productReducers from '../reducer/productReducer';
-// import productCategoryReducers from '../reducer/productCategoryReducer';
-
-//simpan data di reducer
-// const reducer = combineReducers({
-//   userReducer: userReducers,
-//   productReducer: productReducers,
-//   productCategoryReducer: productCategoryReducers,
-// });
+import loginReducers from '../reducer/loginReducer';
 
 const logger = createLogger();
 const saga = createSagaMiddleware();
 const reducer = combineReducers({
-  userReducers, productReducers, productCategoryReducers
+  userReducers, productReducers, productCategoryReducers,loginReducers
 });
 
 const store = configureStore({

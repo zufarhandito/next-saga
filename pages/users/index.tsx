@@ -114,9 +114,11 @@ const User = () => {
   ];
 
   useEffect(() => {
-    if (message) {
-      toast.success(message);
-    }
+    setTimeout(()=>{
+        if (message) {
+            toast.success(message);
+          }
+    },30)
 
     dispatch(doRequestGetUser());
   }, [refresh]);
