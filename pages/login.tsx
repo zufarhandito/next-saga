@@ -26,7 +26,7 @@ const login = () => {
     if(token){
       router.push('/')
     }
-  })
+  },[handleLogin])
   return (
     <div className="md:flex md:flex-col lg:flex lg:flex-row h-screen">
       <div className="lg:w-2/3 bg-red-400 h-10">

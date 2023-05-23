@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { doDelete, doRequestGetUser } from '../redux/action/ActionReducer';
+import Pagination from '../pagination';
 
 function EditInactiveIcon(props:any) {
   return (
@@ -266,6 +267,7 @@ const User = () => {
               ))}
             </tbody>
           </table>
+        <Pagination/>
         </div>
       </Content>
     </>

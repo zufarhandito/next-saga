@@ -2,7 +2,8 @@ import ActionTypes from "../action/ActionTypes";
 
 let initialState = {
     token: '',
-    message: ''
+    message: '',
+    status: 0
 }
 
 const loginReducers = (state = initialState, action:any) => {
@@ -10,7 +11,7 @@ const loginReducers = (state = initialState, action:any) => {
 
     switch (type) {
         case ActionTypes.GET_RESPONSE_LOGIN:
-          return { state, token: payload.access_token,message:payload.message, refresh: true };
+          return { state,status:payload.status, token: payload.access_token,message:payload.message, refresh: true };
         default:
           return state;
       }

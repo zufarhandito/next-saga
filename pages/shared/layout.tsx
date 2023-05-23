@@ -3,8 +3,10 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { Transition } from '@headlessui/react';
 import Nav from './Nav';
 import Sidebar from './sidebar';
+import { useRouter } from 'next/router';
 
 const Layout = ({children}: any) => {
+    const router = useRouter();
     const [showNav, setShowNav] = useState(true);
     const [isMobile, setIsMobile] = useState(false);
   
@@ -19,6 +21,11 @@ const Layout = ({children}: any) => {
     }
   
     useEffect(() => {
+      const token = localStorage.getItem('access_token')
+      if(!token){
+        router.push('/login')
+      }
+
       if (typeof window != undefined) {
         addEventListener('resize', handleResize);
       }

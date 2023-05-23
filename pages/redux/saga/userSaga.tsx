@@ -110,7 +110,9 @@ function* handleGetProductById(action:any):any{
 function* handleLogin(action: any): any{
   try {
     const res = yield call(apiMethod.login,action.payload)
-    localStorage.setItem('access_token', res.data.access_token);
+    if(res.data.access_token){
+      localStorage.setItem('access_token', res.data.access_token);
+    }
     yield put(doGetResponseLogin(res.data))
   } catch (error:any) {
     yield put(doGetResponseLogin({message: error.message}))

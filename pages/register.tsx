@@ -24,9 +24,11 @@ const register = () => {
     firstname: string,
     lastname: string
   }
+
   const handleRegister=(data:data)=>{
       dispatch(doAdd(data))
   }
+
   return (
     <div className="md:flex md:flex-col lg:flex lg:flex-row h-screen">
       <div className="lg:w-2/3 bg-red-400 h-10">
@@ -44,8 +46,10 @@ const register = () => {
               Hello! Please register yourself by email address and password
             </p>
           </div>
-          {message}
-          <div className="my-8 ">
+          {
+            message && <p className='bg-green-200 text-green-800 text-sm p-2 rounded-md relative'>{message}. Silahkan login</p>
+          }
+          <div className="my-7 ">
             <form onSubmit={handleSubmit(handleRegister)}>
               <input
                 id="username"
@@ -69,7 +73,7 @@ const register = () => {
             </p>
               <input
                 id="confPassword"
-                className="p-3 w-full bg-slate-100 rounded my-2 invalid:bg-red-500"
+                className="p-3 w-full bg-slate-100 rounded my-2"
                 type="password"
                 placeholder="Confirm Password"
                 {...register('confirmPassword',{
