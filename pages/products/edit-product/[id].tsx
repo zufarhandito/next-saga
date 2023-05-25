@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
-import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 const EditProduct = () => {
   let { products, message, refresh } = useSelector(
-    (state:any) => state.productReducer,
+    (state: any) => state.productReducer
   );
 
-  const router = useRouter()
+  const router = useRouter();
   const { id } = router.query;
 
   const {
@@ -21,7 +21,6 @@ const EditProduct = () => {
 
   useEffect(() => {
     // let defaultValue = {};
-
     // defaultValue.name = filteredProduct.name;
     // defaultValue.price = filteredProduct.price;
     // defaultValue.category_id = filteredProduct.category_id;
@@ -30,20 +29,20 @@ const EditProduct = () => {
   }, []);
 
   const registerOptions = {
-    name: { required: 'Name is required' },
-    category_id: { required: 'Category is required' },
-    price: { required: 'Price is required' },
-    image: { required: 'Image is required' },
-    description: { required: 'Description is required' },
+    name: { required: "Name is required" },
+    category_id: { required: "Category is required" },
+    price: { required: "Price is required" },
+    image: { required: "Image is required" },
+    description: { required: "Description is required" },
   };
 
-  const handleRegistration = async (data:any) => {
+  const handleRegistration = async (data: any) => {
     const formData = new FormData();
-    formData.append('name', data.name);
-    formData.append('image', data.image[0]);
-    formData.append('category_id', data.category_id);
-    formData.append('description', data.description);
-    formData.append('price', data.price);
+    formData.append("name", data.name);
+    formData.append("image", data.image[0]);
+    formData.append("category_id", data.category_id);
+    formData.append("description", data.description);
+    formData.append("price", data.price);
     // formData.append('id', filteredProduct?.id);
     // console.log();
     // console.log(...formData);
@@ -51,7 +50,7 @@ const EditProduct = () => {
     // const idProduct = filteredProduct.id;
     // dispatch(update_product(formData, idProduct));
     setTimeout(() => {
-    //   navigate('/products');
+      //   navigate('/products');
     }, 3000);
   };
 
@@ -64,7 +63,7 @@ const EditProduct = () => {
         onSubmit={handleSubmit(handleRegistration, handleError)}
       >
         <div className="w-1/2">
-          <input type="file" {...register('image')} name="image" id="image" />
+          <input type="file" {...register("image")} name="image" id="image" />
         </div>
 
         <div className="w-1/2">
@@ -78,8 +77,8 @@ const EditProduct = () => {
               className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
                             focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               type="text"
-            //   name="name"
-              {...register('name', registerOptions.name)}
+              //   name="name"
+              {...register("name", registerOptions.name)}
             />
             <p className="text-red-500">
               {/* {errors?.name && errors.name.message} */}
@@ -90,13 +89,13 @@ const EditProduct = () => {
               Kategori
             </span>
             <input
-            //   defaultValue={filteredProduct.category_id}
+              //   defaultValue={filteredProduct.category_id}
               id="category_id"
               className="mt-1 block w-full px-3 py-2 bg-gray-100 border border-slate-200 rounded-md text-sm  placeholder-slate-400
                             focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               type="number"
-            //   name="category_id"
-              {...register('category_id', registerOptions.category_id)}
+              //   name="category_id"
+              {...register("category_id", registerOptions.category_id)}
             />
             <p className="text-red-500">
               {/* {errors?.category_id && errors.category_id.message} */}
@@ -107,14 +106,14 @@ const EditProduct = () => {
               Harga
             </span>
             <input
-            //   defaultValue={filteredProduct.price}
+              //   defaultValue={filteredProduct.price}
               type="number"
               id="price"
               className="mt-1 block w-1/2 px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
                             focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               // type="text"
-            //   name="price"
-              {...register('price', registerOptions.price)}
+              //   name="price"
+              {...register("price", registerOptions.price)}
             />
             <p className="text-red-500">
               {/* {errors?.price && errors.price.message} */}
@@ -125,9 +124,9 @@ const EditProduct = () => {
               Deskripsi
             </span>
             <textarea
-            //   defaultValue={filteredProduct.description}
+              //   defaultValue={filteredProduct.description}
               className="mt-1 block border h-auto w-full border-slate-300 rounded-md text-sm shadow-sm"
-              {...register('description')}
+              {...register("description")}
             ></textarea>
             <p className="text-red-500">
               {/* {errors?.description && errors.description.message} */}

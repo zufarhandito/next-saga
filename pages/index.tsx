@@ -1,7 +1,7 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import Image from "next/image";
+import { Inter } from "next/font/google";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
@@ -13,5 +13,5 @@ export default function Home() {
       </div>
       <div className="grid col-1 bg-white h-96 shadow-sm"></div>
     </div>
-  )
+  );
 }

@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
-import Link from 'next/link'
-import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import { doAdd } from './redux/action/ActionReducer';
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { doAdd } from "./redux/action/ActionReducer";
 
 const register = () => {
-  const {message} = useSelector((state:any)=>state.userReducers)
+  let { message } = useSelector((state: any) => state.userReducers);
+  const [isMessage, setMessage] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -17,17 +18,21 @@ const register = () => {
     formState: { errors },
   } = useForm();
 
+  useEffect(() => {
+    message ? setMessage(true) : setMessage(false);
+  }, [message]);
+
   interface data {
-    username: string,
-    password: string,
-    confirmPassword: string,
-    firstname: string,
-    lastname: string
+    username: string;
+    password: string;
+    confirmPassword: string;
+    firstname: string;
+    lastname: string;
   }
 
-  const handleRegister=(data:data)=>{
-      dispatch(doAdd(data))
-  }
+  const handleRegister = (data: data) => {
+    dispatch(doAdd(data));
+  };
 
   return (
     <div className="md:flex md:flex-col lg:flex lg:flex-row h-screen">
@@ -46,9 +51,12 @@ const register = () => {
               Hello! Please register yourself by email address and password
             </p>
           </div>
-          {
-            message && <p className='bg-green-200 text-green-800 text-sm p-2 rounded-md relative'>{message}. Silahkan login</p>
-          }
+          {isMessage && (
+            <p className="bg-green-200 text-green-700 text-sm py-2 px-3 rounded-md relative flex justify-between">
+              <div>{message}. Silahkan login</div>
+              <button onClick={() => setMessage(false)}>x</button>
+            </p>
+          )}
           <div className="my-7 ">
             <form onSubmit={handleSubmit(handleRegister)}>
               <input
@@ -56,59 +64,59 @@ const register = () => {
                 className="p-3 w-full bg-slate-100 rounded my-2"
                 type="text"
                 placeholder="username"
-                {...register('username',{required:true})}
+                {...register("username", { required: "Username is empty" })}
               />
-                          <p className="text-red-500">
-              {errors?.username && errors.username.message}
-            </p>
+              <p className="text-red-500">
+                {errors?.username && errors.username.message}
+              </p>
               <input
                 id="Password"
                 className="p-3 w-full bg-slate-100 rounded my-2"
                 type="password"
                 placeholder="Password"
-                {...register('password',{required:true})}
+                {...register("password", { required: "Password is empty" })}
               />
-                          <p className="text-red-500">
-              {errors?.password && errors.password.message}
-            </p>
+              <p className="text-red-500">
+                {errors?.password && errors.password.message}
+              </p>
               <input
                 id="confPassword"
                 className="p-3 w-full bg-slate-100 rounded my-2"
                 type="password"
                 placeholder="Confirm Password"
-                {...register('confirmPassword',{
-                  required: true,
+                {...register("confirmPassword", {
+                  required: "Repeat your password",
                   validate: (val: string) => {
-                    if (watch('password') != val) {
+                    if (watch("password") != val) {
                       return "Password tidak sama!";
                     }
                   },
-                 })}
+                })}
               />
-            <p className="text-red-500">
-              {errors?.confirmPassword && errors.confirmPassword.message}
-            </p>
-              <div className='flex gap-4'>
-              <input
-                id="firstname"
-                className="p-3 w-1/2 bg-slate-100 rounded my-2"
-                type="text"
-                placeholder="First Name"
-                {...register('firstname',{required:true})}
+              <p className="text-red-500">
+                {errors?.confirmPassword && errors.confirmPassword.message}
+              </p>
+              <div className="flex gap-4">
+                <input
+                  id="firstname"
+                  className="p-3 w-1/2 bg-slate-100 rounded my-2"
+                  type="text"
+                  placeholder="First Name"
+                  {...register("firstname", { required: "Firstname is empty" })}
                 />
-                            <p className="text-red-500">
-              {errors?.firstname && errors.firstname.message}
-            </p>
-              <input
-                id="lastname"
-                className="p-3 w-1/2 bg-slate-100 rounded my-2"
-                type="text"
-                placeholder="Last Name"
-                {...register('lastname',{required:true})}
-              />
                 <p className="text-red-500">
-              {errors?.firstname && errors.firstname.message}
-            </p>
+                  {errors?.firstname && errors.firstname.message}
+                </p>
+                <input
+                  id="lastname"
+                  className="p-3 w-1/2 bg-slate-100 rounded my-2"
+                  type="text"
+                  placeholder="Last Name"
+                  {...register("lastname", { required: "Lastname is empty" })}
+                />
+                <p className="text-red-500">
+                  {errors?.firstname && errors.firstname.message}
+                </p>
               </div>
               <div className="flex justify-between mt-2 mb-10 text-sm font-normal">
                 <div>
@@ -136,7 +144,7 @@ const register = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default register
+export default register;

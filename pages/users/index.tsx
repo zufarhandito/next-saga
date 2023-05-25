@@ -1,17 +1,22 @@
-import React, { useEffect, useState, Fragment } from 'react';
-import Content from '../content';
-import { Menu, Transition } from '@headlessui/react';
-import ConfirmDelete from '../ConfirmDelete';
+import React, { useEffect, useState, Fragment } from "react";
+import Content from "../content";
+import { Menu, Transition } from "@headlessui/react";
+import ConfirmDelete from "../ConfirmDelete";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch, useSelector } from 'react-redux';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { doDelete, doRequestGetUser } from '../redux/action/ActionReducer';
-import Pagination from '../pagination';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useDispatch, useSelector } from "react-redux";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import {
+  doDelete,
+  doRequestGetUser,
+  doRequestGetUserPage,
+} from "../redux/action/ActionReducer";
+import Pagination from "../pagination";
 
-function EditInactiveIcon(props:any) {
+function EditInactiveIcon(props: any) {
   return (
     <svg
       {...props}
@@ -29,7 +34,7 @@ function EditInactiveIcon(props:any) {
   );
 }
 
-function EditActiveIcon(props:any) {
+function EditActiveIcon(props: any) {
   return (
     <svg
       {...props}
@@ -47,7 +52,7 @@ function EditActiveIcon(props:any) {
   );
 }
 
-function DeleteInactiveIcon(props:any) {
+function DeleteInactiveIcon(props: any) {
   return (
     <svg
       {...props}
@@ -70,7 +75,7 @@ function DeleteInactiveIcon(props:any) {
   );
 }
 
-function DeleteActiveIcon(props:any) {
+function DeleteActiveIcon(props: any) {
   return (
     <svg
       {...props}
@@ -94,8 +99,8 @@ function DeleteActiveIcon(props:any) {
 }
 
 const User = () => {
-  let { user, message, status, refresh } = useSelector(
-    (state:any) => state.userReducers,
+  let { user, message, totalData, status, refresh } = useSelector(
+    (state: any) => state.userReducers
   );
 
   const dispatch = useDispatch();
@@ -104,35 +109,60 @@ const User = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [whatToDelete, setWhatToDelete] = useState();
-  const [isMessage, setIsMessage] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [offset, setOffset] = useState(0);
+  const [limit, setLimit] = useState(3);
+  const [displayNumber, setDisplayNumber] = useState();
+
+  const totalPage = Math.ceil(totalData / limit);
+  const startIndex = currentPage - 2
+  const endIndex = currentPage + 2
+  const pages: number[] = [];
+  const numbers = (currentPage - 1) * limit;
+
+  for (let i = 1; i <= totalPage; i++) {
+    pages.push(i);
+  }
+
+  const slicedPage = pages.slice(startIndex,endIndex)
+  console.log(slicedPage);
+  
+  const dataoffset = {
+    offset: offset,
+    limit: limit,
+  };
 
   const columns = [
-    { name: 'No.' },
-    { name: 'Username' },
-    { name: 'Firstname' },
-    { name: 'Lastname' },
-    { name: 'Aksi' },
+    { name: "No." },
+    { name: "Username" },
+    { name: "Firstname" },
+    { name: "Lastname" },
+    { name: "Aksi" },
   ];
 
   useEffect(() => {
-    setTimeout(()=>{
-        if (message) {
-            toast.success(message);
-          }
-    },30)
+    setTimeout(() => {
+      if (message) {
+        toast.success(message);
+      }
+    }, 30);
 
-    dispatch(doRequestGetUser());
-  }, [refresh]);
+    dispatch(doRequestGetUserPage(dataoffset));
+  }, [offset, currentPage, limit, refresh]);
 
-  const goToEdit = (item:any) => {
+  const goToEdit = (id: number) => {
+    localStorage.setItem(
+      "userById",
+      JSON.stringify(user.find((item: any) => item.id === id))
+    );
     router.push({
-        pathname: 'edit-user/',
-        query: { id: 123 }, 
-        // state: { user: item }
-      });
+      pathname: "users/edit-user/",
+      query: { id: id },
+    });
   };
 
-  const getWhatToDelete = (data:any) => {
+  const getWhatToDelete = (data: any) => {
     setWhatToDelete(data);
     setIsDelete(true);
   };
@@ -142,20 +172,34 @@ const User = () => {
     setIsDelete(false);
   };
 
+  const onClickPage = (index: number) => {
+    setCurrentPage(index + 1);
+    setOffset(index * limit);
+  };
+
+  const onClickArrow = (direction: string) => {
+    if (direction === "left") {
+      setCurrentPage(currentPage - 1);
+      setOffset((currentPage - 1) * limit);
+    }
+    if (direction === "right") {
+      setCurrentPage(currentPage + 1);
+      setOffset((currentPage - 1) * limit);
+    }
+  };
+
   return (
     <>
       {isDelete ? (
         <ConfirmDelete
           show={isDelete}
           table="User"
-        //   name={whatToDelete.username}
-        //   id={whatToDelete.id}
           closeModal={() => setIsDelete(false)}
           funcion={getWhatToDelete}
           remove={deleteData}
         />
       ) : (
-        ''
+        ""
       )}
       <Content
         title="users"
@@ -165,6 +209,53 @@ const User = () => {
       >
         <div className="p-5 rounded-2xl bg-white bg-opacity-50">
           <ToastContainer />
+          <div className="flex justify-between text-gray-600 text-sm">
+            <div className="flex">
+              <button
+                onClick={() => {
+                  currentPage === 1 ? setCurrentPage(1) : onClickArrow("left");
+                }}
+              >
+                <ChevronLeftIcon
+                  style={{ width: "18px", marginRight: "10px" }}
+                />
+              </button>
+              {pages.map((arr, i) => (
+                <button
+                  className={
+                    currentPage == i + 1
+                      ? "bg-purple-500 transition-all px-2 shadow-md rounded-md text-white"
+                      : "px-3"
+                  }
+                  onClick={() => onClickPage(i)}
+                >
+                  {i + 1}
+                </button>
+              ))}
+              <button
+                onClick={() => {
+                  currentPage === totalPage
+                    ? setCurrentPage(totalPage)
+                    : onClickArrow("right");
+                }}
+              >
+                <ChevronRightIcon
+                  style={{ width: "18px", marginRight: "10px" }}
+                />
+              </button>
+            </div>
+            <div>
+              <select
+                onChange={(event: any) => setLimit(event.target.value)}
+                value={limit}
+                className="py-1 px-2 "
+              >
+                <option value="3">3 rows</option>
+                <option value="6">6 rows</option>
+                <option value="9">9 rows</option>
+              </select>
+            </div>
+          </div>
           <table className="min-w-full table-fixed ">
             <thead>
               <tr>
@@ -175,20 +266,20 @@ const User = () => {
                 ))}
               </tr>
             </thead>
-            <tbody className="">
-              {(user || []).map((data:any, index:any) => (
-                // {console.log(data[index])}
-                // JSON.stringify(data.customer)
+            <tbody>
+              {(user || []).map((data: any, index: any) => (
                 <tr key={data.id}>
-                  <td className="py-3 text-sm text-gray-600">{index + 1}</td>
+                  <td className="py-3 text-sm text-gray-600">
+                    {numbers + index + 1}
+                  </td>
                   <td className="py-3 text-sm text-gray-600">
                     {data.username}
                   </td>
                   <td className="py-3 text-sm text-gray-600">
-                    {data.customer.firstname}
+                    {data.firstname}
                   </td>
                   <td className="py-3 text-sm text-gray-600">
-                    {data.customer.lastname}
+                    {data.lastname}
                   </td>
                   <td>
                     <Menu as="div" className="relative inline-block text-left">
@@ -211,11 +302,11 @@ const User = () => {
                             <Menu.Item>
                               {({ active }) => (
                                 <button
-                                  onClick={() => goToEdit(data)}
+                                  onClick={() => goToEdit(data.id)}
                                   className={`${
                                     active
-                                      ? 'bg-violet-500 text-white'
-                                      : 'text-gray-900'
+                                      ? "bg-violet-500 text-white"
+                                      : "text-gray-900"
                                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                 >
                                   {active ? (
@@ -239,8 +330,8 @@ const User = () => {
                                   onClick={() => getWhatToDelete(data)}
                                   className={`${
                                     active
-                                      ? 'bg-violet-500 text-white'
-                                      : 'text-gray-900'
+                                      ? "bg-violet-500 text-white"
+                                      : "text-gray-900"
                                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                 >
                                   {active ? (
@@ -267,7 +358,6 @@ const User = () => {
               ))}
             </tbody>
           </table>
-        <Pagination/>
         </div>
       </Content>
     </>

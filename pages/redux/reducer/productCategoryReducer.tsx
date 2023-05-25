@@ -1,12 +1,12 @@
-import ActionTypes from '../action/ActionTypes';
+import ActionTypes from "../action/ActionTypes";
 
 const initialState = {
   categories: [],
-  message: '',
-  refresh: '',
+  message: "",
+  refresh: "",
 };
 
-function productCategoryReducers(state = initialState, action:any) {
+function productCategoryReducers(state = initialState, action: any) {
   const { type, payload } = action;
   // console.log(payload);
   switch (type) {

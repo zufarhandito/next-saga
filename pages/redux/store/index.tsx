@@ -1,17 +1,20 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { createLogger } from 'redux-logger';
-import createSagaMiddleware from '@redux-saga/core';
-import userReducers from '../reducer/userReducer';
-import productReducers from '../reducer/productReducer';
-import { combineReducers } from '@reduxjs/toolkit';
-import rootSaga from '../saga';
-import productCategoryReducers from '../reducer/productCategoryReducer';
-import loginReducers from '../reducer/loginReducer';
+import { configureStore } from "@reduxjs/toolkit";
+import { createLogger } from "redux-logger";
+import createSagaMiddleware from "@redux-saga/core";
+import userReducers from "../reducer/userReducer";
+import productReducers from "../reducer/productReducer";
+import { combineReducers } from "@reduxjs/toolkit";
+import rootSaga from "../saga";
+import productCategoryReducers from "../reducer/productCategoryReducer";
+import loginReducers from "../reducer/loginReducer";
 
 const logger = createLogger();
 const saga = createSagaMiddleware();
 const reducer = combineReducers({
-  userReducers, productReducers, productCategoryReducers,loginReducers
+  userReducers,
+  productReducers,
+  productCategoryReducers,
+  loginReducers,
 });
 
 const store = configureStore({

@@ -1,15 +1,15 @@
-import ActionTypes from '../action/ActionTypes';
+import ActionTypes from "../action/ActionTypes";
 
 const initialState = {
   user: [],
-  message: '',
+  message: "",
   status: 0,
-  refresh: '',
+  refresh: "",
+  jumlah: "",
 };
 
-function userReducers(state = initialState, action:any) {
+function userReducers(state = initialState, action: any) {
   const { type, payload } = action;
-  // console.log(action);
 
   switch (type) {
     case ActionTypes.GET_USERS_RESPONSE:
@@ -17,7 +17,6 @@ function userReducers(state = initialState, action:any) {
         state,
         user: payload.data,
         status: payload.status,
-        // message: payload.message,
         refresh: true,
       };
     case ActionTypes.UPDATE_USER_RESPONSE:
@@ -26,6 +25,14 @@ function userReducers(state = initialState, action:any) {
       return { state, message: payload.message, refresh: false };
     case ActionTypes.ADD_USER_RESPONSE:
       return { state, message: payload.message, refresh: false };
+    case ActionTypes.GET_USER_PAGE_RESPONSE:
+      return {
+        state,
+        user: payload.data,
+        totalData: payload.totalData,
+        status: payload.status,
+        refresh: true,
+      };
     default:
       return state;
   }

@@ -1,8 +1,16 @@
 import axios from '../config/endpoint';
 
-const findAll = () => {
-  return axios.get('/users');
-};
+// const instance = axios.create();
+
+axios.interceptors.request.use((config:any) => {
+  const token = localStorage.getItem('access_token')
+  config.headers['Authorization'] = token;
+  return config;
+});
+
+  const findAll = () => {
+    return axios.get('/users');
+  };
 const create = (data:any) => {
   return axios.post('/users/sp', data);
 };
@@ -31,11 +39,9 @@ const createProduct = (data:any) => {
 };
 
 const updateProduct = (data:any) => {
-  return axios.patch(`/products/${data.id}`, data, {
-    headers: {
-      'content-type': 'multipart/form-data',
-    },
-  });
+  const id = data.get('id')
+  console.log(id);
+  return axios.patch(`/products/${id}`, data);
 };
 
 const deleteProduct = (id:any) => {
@@ -50,6 +56,10 @@ const login = (data:any) => {
   return axios.post('/login',data)
 }
 
+const userPage = (offset: any) => {
+  return axios.post('/users/page',offset)
+}
+
 export default {
   findAll,
   create,
@@ -61,5 +71,6 @@ export default {
   updateProduct,
   deleteProduct,
   getProductCat,
-  login
+  login,
+  userPage
 };

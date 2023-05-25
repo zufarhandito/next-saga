@@ -1,15 +1,11 @@
-import React, { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch, useSelector } from 'react-redux';
-// import { create} from '../redux/action/ActionReducer';
-import { doAdd } from '../redux/action/ActionReducer';
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
+import "react-toastify/dist/ReactToastify.css";
+import { useDispatch, useSelector } from "react-redux";
+import { doAdd } from "../redux/action/ActionReducer";
 
 const AddUser = () => {
-  let { user, message, refresh } = useSelector((state:any) => state.userReducers);
-
   const dispatch = useDispatch();
   const router = useRouter();
   const {
@@ -18,22 +14,21 @@ const AddUser = () => {
     formState: { errors },
   } = useForm();
 
-  const handleRegistration = (data:any) => {
-    // console.log("object");
+  const handleRegistration = (data: any) => {
     dispatch(doAdd(data));
-    router.push('/users');
+    router.push("/users");
   };
-  const handleError = (errors:any) => {};
+  const handleError = (errors: any) => {};
 
   const registerOptions = {
-    username: { required: 'Username is required' },
-    firstname: { required: 'Firstname is required' },
-    lastname: { required: 'Lastname is required' },
+    username: { required: "Username is required" },
+    firstname: { required: "Firstname is required" },
+    lastname: { required: "Lastname is required" },
     password: {
-      required: 'Password is required',
+      required: "Password is required",
       minLength: {
         value: 8,
-        message: 'Password must have at least 8 characters',
+        message: "Password must have at least 8 characters",
       },
     },
   };
@@ -55,8 +50,8 @@ const AddUser = () => {
                             invalid:border-pink-500 invalid:text-pink-600
                             focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
               type="text"
-            //   name="username"
-              {...register('username', registerOptions.username)}
+              //   name="username"
+              {...register("username", registerOptions.username)}
             />
             <p className="text-red-500">
               {/* {errors?.username && errors.username.message} */}
@@ -75,8 +70,8 @@ const AddUser = () => {
                             invalid:border-pink-500 invalid:text-pink-600
                             focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
               type="text"
-            //   name="password"
-              {...register('password', registerOptions.password)}
+              //   name="password"
+              {...register("password", registerOptions.password)}
             />
             <p className="text-red-500">
               {/* {errors?.password && errors.password.message} */}
@@ -97,7 +92,7 @@ const AddUser = () => {
                             invalid:border-pink-500 invalid:text-pink-600
                             focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                 // name="firstname"
-                {...register('firstname', registerOptions.firstname)}
+                {...register("firstname", registerOptions.firstname)}
               />
               <p className="text-red-500">
                 {/* {errors?.firstname && errors.firstname.message} */}
@@ -117,7 +112,7 @@ const AddUser = () => {
                             invalid:border-pink-500 invalid:text-pink-600
                             focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                 // name="lastname"
-                {...register('lastname', registerOptions.lastname)}
+                {...register("lastname", registerOptions.lastname)}
               />
               <p className="text-red-500">
                 {/* {errors?.lastname && errors.lastname.message} */}
