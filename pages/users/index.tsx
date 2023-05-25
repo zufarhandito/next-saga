@@ -116,15 +116,12 @@ const User = () => {
   const [displayNumber, setDisplayNumber] = useState();
 
   const totalPage = Math.ceil(totalData / limit);
-  const startIndex = currentPage - 2
-  const endIndex = currentPage + 2
-  const pages: number[] = [];
+  let startIndex = currentPage - 2
+  let endIndex = currentPage + 2
   const numbers = (currentPage - 1) * limit;
+  startIndex = Math.max(startIndex,1)
+  endIndex = Math.min(endIndex,totalPage)
 
-  for (let i = 1; i <= totalPage; i++) {
-    pages.push(i);
-  }
-  
   const dataoffset = {
     offset: offset,
     limit: limit,
@@ -153,10 +150,6 @@ const User = () => {
       "userById",
       JSON.stringify(user.find((item: any) => item.id === id))
     );
-    router.push({
-      pathname: "users/edit-user/",
-      query: { id: id },
-    });
   };
 
   const getWhatToDelete = (data: any) => {
@@ -170,20 +163,42 @@ const User = () => {
   };
 
   const onClickPage = (index: number) => {
-    setCurrentPage(index + 1);
+    setCurrentPage(index);
     setOffset(index * limit);
   };
 
   const onClickArrow = (direction: string) => {
     if (direction === "left") {
       setCurrentPage(currentPage - 1);
-      setOffset((currentPage - 1) * limit);
+      setOffset((currentPage) * limit);
     }
     if (direction === "right") {
       setCurrentPage(currentPage + 1);
-      setOffset((currentPage - 1) * limit);
+      setOffset((currentPage) * limit);
     }
   };
+
+  const buttonRender = () => {
+    let buttons = []
+    for(let i = startIndex; i <= endIndex; i++) {
+      buttons.push(
+        <button
+        className={
+          currentPage === i
+            ? "bg-purple-500 transition-all px-2 shadow-md rounded-md text-white"
+            : "px-3"
+        }
+        onClick={() => onClickPage(i)}
+      >
+        {i}
+      </button>
+      )
+    }
+    return buttons
+  }
+  // console.log(current);
+
+  console.log(currentPage);
 
   return (
     <>
@@ -217,18 +232,9 @@ const User = () => {
                   style={{ width: "18px", marginRight: "10px" }}
                 />
               </button>
-              {pages.map((arr, i) => (
-                <button
-                  className={
-                    currentPage == i + 1
-                      ? "bg-purple-500 transition-all px-2 shadow-md rounded-md text-white"
-                      : "px-3"
-                  }
-                  onClick={() => onClickPage(i)}
-                >
-                  {i + 1}
-                </button>
-              ))}
+
+                  {buttonRender()}
+
               <button
                 onClick={() => {
                   currentPage === totalPage
