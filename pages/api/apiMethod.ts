@@ -1,14 +1,17 @@
+import Cookies from 'js-cookie';
 import axios from '../config/endpoint';
 
-// const instance = axios.create();
-
 axios.interceptors.request.use((config:any) => {
-  const token = localStorage.getItem('access_token')
+try {
+  const token = Cookies.get('access_token')
   config.headers['Authorization'] = token;
   return config;
+} catch (error:any) {
+  console.log(error.message)
+}
 });
 
-  const findAll = () => {
+const findAll = () => {
     return axios.get('/users');
   };
 const create = (data:any) => {

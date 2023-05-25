@@ -1,5 +1,6 @@
 import { call, put } from "redux-saga/effects";
 import apiMethod from "@/pages/api/apiMethod";
+import Cookies from 'js-cookie'
 import {
   doAddProductResponse,
   doAddResponse,
@@ -113,7 +114,7 @@ function* handleLogin(action: any): any {
   try {
     const res = yield call(apiMethod.login, action.payload);
     if (res.data.access_token) {
-      localStorage.setItem("access_token", res.data.access_token);
+      Cookies.set('access_token', res.data.access_token);
       localStorage.setItem('userData',JSON.stringify({
         id: res.data.data.id,
         username: res.data.data.username,

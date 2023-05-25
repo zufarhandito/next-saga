@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { doLogin } from "./redux/action/ActionReducer";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 const login = () => {
   const router = useRouter();
@@ -25,7 +26,7 @@ const login = () => {
 
   useEffect(() => {
     message? setIsMessage(true): setIsMessage(false)
-    const token = localStorage.getItem("access_token");
+    const token = Cookies.get('access_token')
     if (token) {
       router.push("/");
     }

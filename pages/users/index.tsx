@@ -124,9 +124,6 @@ const User = () => {
   for (let i = 1; i <= totalPage; i++) {
     pages.push(i);
   }
-
-  const slicedPage = pages.slice(startIndex,endIndex)
-  console.log(slicedPage);
   
   const dataoffset = {
     offset: offset,

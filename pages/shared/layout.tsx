@@ -1,11 +1,17 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { Transition } from "@headlessui/react";
 import Nav from "./Nav";
+import Link from "next/link";
 import Sidebar from "./sidebar";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
+import jwt from 'jsonwebtoken'
+import jwt_decode from 'jwt-decode'
 
 const Layout = ({ children }: any) => {
   const router = useRouter();
+  const [isExpired,setIsExpired] = useState(false)
+  const [exp,setExp] = useState('')
   const [showNav, setShowNav] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -20,13 +26,24 @@ const Layout = ({ children }: any) => {
   }
 
   useEffect(() => {
-    // const token = localStorage.getItem("access_token");
-    // const verifyToken = jwt.verify(token,'KSDJN873Y4HJDF8734Y5487H7S8DIFTI7TN87YR823NSUDHF873RHIW7E874RHDIS7UYD3IUSD8F7Y234G2U3SJDFODSIF874YI3UH')
+  try {
+    const token = Cookies.get('access_token')
+    if(!token){
+      router.push('/login')
+      // alert('token gada')
+      throw new Error('token habis')
+    }
+    let decoded:any = jwt_decode(token)
 
-    // if (!verifyToken) {
-    //   router.push("/login");
-    // }
+    if (decoded.exp * 1000 - Date.now() <= 0) {
+      setIsExpired(true)
+      Cookies.remove('access_token')
+      router.push('/login')
+    }
 
+  } catch (error) {
+    alert('token habis')
+  }
     if (typeof window != undefined) {
       addEventListener("resize", handleResize);
     }
@@ -34,7 +51,7 @@ const Layout = ({ children }: any) => {
     return () => {
       removeEventListener("resize", handleResize);
     };
-  }, []);
+  });
 
   return (
     <>
