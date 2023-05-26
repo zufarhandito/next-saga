@@ -5,17 +5,18 @@ import {
   ChevronDownIcon,
   Cog8ToothIcon,
 } from "@heroicons/react/24/solid";
+import { useRouter } from "next/router";
 import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
 import { Menu, Transition } from "@headlessui/react";
 
 const Nav = ({ showNav, setShowNav }: any) => {
+  const router = useRouter()
   const [username, setUserName] = useState('')
   const [firstname, setFirstName] = useState('')
   const [lastname, setLastName] = useState('')
 
   const handleLogout = () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("userData");
+    localStorage.clear()
     router.push("/login");
   };
 

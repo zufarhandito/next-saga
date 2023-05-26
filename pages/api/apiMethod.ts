@@ -1,15 +1,25 @@
 import Cookies from 'js-cookie';
 import axios from '../config/endpoint';
 
-axios.interceptors.request.use((config:any) => {
-try {
+axios.interceptors.request.use(async(config)=>{
   const token = Cookies.get('access_token')
-  config.headers['Authorization'] = token;
-  return config;
-} catch (error:any) {
-  console.log(error.message)
-}
-});
+  if(token){
+    config.headers['Authorization'] = token;
+  }
+  return config
+},(error)=> Promise.reject(error))
+
+axios.interceptors.response.use(
+  (response: any) => {
+    return response;
+  },
+  async (error) => {
+    if(error.response.status === 401){
+      Cookies.remove('access_token')
+    }
+    return Promise.reject(error);
+  }
+);
 
 const findAll = () => {
     return axios.get('/users');

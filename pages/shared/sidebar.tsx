@@ -8,11 +8,12 @@ import {
   TagIcon,
   CubeIcon,
 } from "@heroicons/react/24/solid";
+import Cookies from "js-cookie";
 
 const Sidebar = forwardRef(({}, ref: LegacyRef<HTMLDivElement>) => {
   const router = useRouter();
   const handleLogout = () => {
-    localStorage.removeItem("access_token");
+    Cookies.remove('access_token')
 
     localStorage.removeItem("userData");
     

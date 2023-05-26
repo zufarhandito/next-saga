@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import jwt from 'jsonwebtoken'
 import jwt_decode from 'jwt-decode'
+import { toast } from "react-toastify";
 
 const Layout = ({ children }: any) => {
   const router = useRouter();
@@ -14,6 +15,7 @@ const Layout = ({ children }: any) => {
   const [exp,setExp] = useState('')
   const [showNav, setShowNav] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [isToken,setIsToken] = useState(true)
 
   function handleResize() {
     if (innerWidth <= 640) {
@@ -26,24 +28,11 @@ const Layout = ({ children }: any) => {
   }
 
   useEffect(() => {
-  try {
     const token = Cookies.get('access_token')
     if(!token){
       router.push('/login')
-      // alert('token gada')
-      throw new Error('token habis')
+      // setIsToken(false)
     }
-    let decoded:any = jwt_decode(token)
-
-    if (decoded.exp * 1000 - Date.now() <= 0) {
-      setIsExpired(true)
-      Cookies.remove('access_token')
-      router.push('/login')
-    }
-
-  } catch (error) {
-    alert('token habis')
-  }
     if (typeof window != undefined) {
       addEventListener("resize", handleResize);
     }

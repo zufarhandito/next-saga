@@ -197,9 +197,6 @@ const User = () => {
     return buttons
   }
   // console.log(current);
-
-  console.log(currentPage);
-
   return (
     <>
       {isDelete ? (
