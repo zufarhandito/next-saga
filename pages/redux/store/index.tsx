@@ -1,12 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { createLogger } from "redux-logger";
-import createSagaMiddleware from "@redux-saga/core";
-import userReducers from "../reducer/userReducer";
-import productReducers from "../reducer/productReducer";
-import { combineReducers } from "@reduxjs/toolkit";
-import rootSaga from "../saga";
-import productCategoryReducers from "../reducer/productCategoryReducer";
-import loginReducers from "../reducer/loginReducer";
+import { configureStore } from '@reduxjs/toolkit';
+import { createLogger } from 'redux-logger';
+import createSagaMiddleware from '@redux-saga/core';
+import userReducers from '../reducer/userReducer';
+import productReducers from '../reducer/productReducer';
+import { combineReducers } from '@reduxjs/toolkit';
+import rootSaga from '../saga';
+import productCategoryReducers from '../reducer/productCategoryReducer';
+import loginReducers from '../reducer/loginReducer';
 
 const logger = createLogger();
 const saga = createSagaMiddleware();
@@ -19,7 +19,7 @@ const reducer = combineReducers({
 
 const store = configureStore({
   reducer,
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: false,
     })

@@ -1,14 +1,14 @@
-import React, { useEffect, useState, Fragment } from "react";
-import { useForm } from "react-hook-form";
-import { Combobox, Transition } from "@headlessui/react";
-import { useDispatch, useSelector } from "react-redux";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import { toast } from "react-toastify";
-import { useRouter } from "next/router";
+import React, { useEffect, useState, Fragment } from 'react';
+import { useForm } from 'react-hook-form';
+import { Combobox, Transition } from '@headlessui/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 import {
   doAddProduct,
   doRequestGetCategory,
-} from "../redux/action/ActionReducer";
+} from '../redux/action/ActionReducer';
 
 const AddProduct = () => {
   const { categories, message, refresh } = useSelector(
@@ -16,16 +16,16 @@ const AddProduct = () => {
   );
 
   const [selected, setSelected] = useState(categories[0]);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
 
   const filteredCategories =
-    query === ""
+    query === ''
       ? categories
       : categories.filter((cat: any) =>
           cat.name
             .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
+            .replace(/\s+/g, '')
+            .includes(query.toLowerCase().replace(/\s+/g, ''))
         );
 
   const dispatch = useDispatch();
@@ -41,24 +41,22 @@ const AddProduct = () => {
   } = useForm();
 
   const registerOptions = {
-    name: { required: "Name is required" },
-    category_id: { required: "Category is required" },
-    price: { required: "Price is required" },
-    image: { required: "Image is required" },
-    description: { required: "Description is required" },
+    name: { required: 'Name is required' },
+    category_id: { required: 'Category is required' },
+    price: { required: 'Price is required' },
+    image: { required: 'Image is required' },
+    description: { required: 'Description is required' },
   };
 
   const handleRegistration = async (data: any) => {
-
-
     const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("image", data.image[0]);
-    formData.append("category_id", selected.id);
-    formData.append("description", data.description);
-    formData.append("price", data.price);
+    formData.append('name', data.name);
+    formData.append('image', data.image[0]);
+    formData.append('category_id', selected.id);
+    formData.append('description', data.description);
+    formData.append('price', data.price);
 
-    toast.success("sukses");
+    toast.success('sukses');
     // console.log(...formData)
     // dispatch(doAddProduct(formData));
     // router.push("/products");
@@ -78,10 +76,13 @@ const AddProduct = () => {
         onSubmit={handleSubmit(handleRegistration, handleError)}
       >
         <div className="w-1/2">
-          <input type="file" {...register("image",registerOptions.image)} name="image" id="image" />
-          <p className="text-red-500">
-              {errors?.name && errors.name.message}
-            </p>
+          <input
+            type="file"
+            {...register('image', registerOptions.image)}
+            name="image"
+            id="image"
+          />
+          <p className="text-red-500">{errors?.name && errors.name.message}</p>
         </div>
 
         <div className="w-1/2">
@@ -95,7 +96,7 @@ const AddProduct = () => {
                             focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               type="text"
               //   name="name"
-              {...register("name", registerOptions.name)}
+              {...register('name', registerOptions.name)}
             />
             <p className="text-red-500">
               {errors?.name && errors.name.message}
@@ -111,7 +112,7 @@ const AddProduct = () => {
                   <Combobox.Input
                     className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 "
                     displayValue={(cat: any) => cat.name}
-                    onChange={(event) => setQuery(event.target.value)}
+                    onChange={event => setQuery(event.target.value)}
                   />
                   <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
                     <ChevronUpDownIcon
@@ -125,10 +126,10 @@ const AddProduct = () => {
                   leave="transition ease-in duration-100"
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
-                  afterLeave={() => setQuery("")}
+                  afterLeave={() => setQuery('')}
                 >
                   <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                    {filteredCategories.length === 0 && query !== "" ? (
+                    {filteredCategories.length === 0 && query !== '' ? (
                       <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
                         Nothing found.
                       </div>
@@ -139,8 +140,8 @@ const AddProduct = () => {
                           className={({ active }) =>
                             `relative cursor-default select-none py-2 pl-10 pr-4 ${
                               active
-                                ? "bg-teal-600 text-white"
-                                : "text-gray-900"
+                                ? 'bg-teal-600 text-white'
+                                : 'text-gray-900'
                             }`
                           }
                           value={cat}
@@ -149,7 +150,7 @@ const AddProduct = () => {
                             <>
                               <span
                                 className={`block truncate ${
-                                  selected ? "font-medium" : "font-normal"
+                                  selected ? 'font-medium' : 'font-normal'
                                 }`}
                               >
                                 {cat.name}
@@ -157,7 +158,7 @@ const AddProduct = () => {
                               {selected ? (
                                 <span
                                   className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                    active ? "text-white" : "text-teal-600"
+                                    active ? 'text-white' : 'text-teal-600'
                                   }`}
                                 >
                                   <CheckIcon
@@ -187,7 +188,7 @@ const AddProduct = () => {
                             focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               // type="text"
               //   name="price"
-              {...register("price", registerOptions.price)}
+              {...register('price', registerOptions.price)}
             />
             <p className="text-red-500">
               {errors?.price && errors.price.message}
@@ -199,7 +200,7 @@ const AddProduct = () => {
             </span>
             <textarea
               className="mt-1 block border h-auto w-full border-slate-300 rounded-md text-sm shadow-sm"
-              {...register("description",registerOptions.description)}
+              {...register('description', registerOptions.description)}
             ></textarea>
             <p className="text-red-500">
               {errors?.description && errors.description.message}

@@ -1,6 +1,6 @@
-import { call, put } from "redux-saga/effects";
-import apiMethod from "@/pages/api/apiMethod";
-import Cookies from 'js-cookie'
+import { call, put } from 'redux-saga/effects';
+import apiMethod from '@/pages/api/apiMethod';
+import Cookies from 'js-cookie';
 import {
   doAddProductResponse,
   doAddResponse,
@@ -16,7 +16,7 @@ import {
   doRequestGetProduct,
   doUpdateProductResponse,
   doUpdateResponse,
-} from "../action/ActionReducer";
+} from '../action/ActionReducer';
 
 function* handleGetAllUser(): any {
   try {
@@ -115,14 +115,17 @@ function* handleLogin(action: any): any {
     const res = yield call(apiMethod.login, action.payload);
     if (res.data.access_token) {
       Cookies.set('access_token', res.data.access_token);
-      localStorage.setItem('userData',JSON.stringify({
-        id: res.data.data.id,
-        username: res.data.data.username,
-        createdAt: res.data.data.createdat,
-        updatedAt: res.data.data.updatedat,
-        firstname: res.data.data.customer.firstname,
-        lastname: res.data.data.customer.lastname
-      }))
+      localStorage.setItem(
+        'userData',
+        JSON.stringify({
+          id: res.data.data.id,
+          username: res.data.data.username,
+          createdAt: res.data.data.createdat,
+          updatedAt: res.data.data.updatedat,
+          firstname: res.data.data.customer.firstname,
+          lastname: res.data.data.customer.lastname,
+        })
+      );
     }
     yield put(doGetResponseLogin(res.data));
   } catch (error: any) {

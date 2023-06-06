@@ -1,20 +1,20 @@
-import React, { useEffect, useState, Fragment } from "react";
-import Content from "../content";
-import { Menu, Transition } from "@headlessui/react";
-import ConfirmDelete from "../ConfirmDelete";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import React, { useEffect, useState, Fragment } from 'react';
+import Content from '../content';
+import { Menu, Transition } from '@headlessui/react';
+import ConfirmDelete from '../ConfirmDelete';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useDispatch, useSelector } from "react-redux";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch, useSelector } from 'react-redux';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import {
   doDelete,
   doRequestGetUser,
   doRequestGetUserPage,
-} from "../redux/action/ActionReducer";
-import Pagination from "../pagination";
+} from '../redux/action/ActionReducer';
+import Pagination from '../pagination';
 
 function EditInactiveIcon(props: any) {
   return (
@@ -116,11 +116,11 @@ const User = () => {
   const [displayNumber, setDisplayNumber] = useState();
 
   const totalPage = Math.ceil(totalData / limit);
-  let startIndex = currentPage - 2
-  let endIndex = currentPage + 2
+  let startIndex = currentPage - 2;
+  let endIndex = currentPage + 2;
   const numbers = (currentPage - 1) * limit;
-  startIndex = Math.max(startIndex,1)
-  endIndex = Math.min(endIndex,totalPage)
+  startIndex = Math.max(startIndex, 1);
+  endIndex = Math.min(endIndex, totalPage);
 
   const dataoffset = {
     offset: offset,
@@ -128,11 +128,11 @@ const User = () => {
   };
 
   const columns = [
-    { name: "No." },
-    { name: "Username" },
-    { name: "Firstname" },
-    { name: "Lastname" },
-    { name: "Aksi" },
+    { name: 'No.' },
+    { name: 'Username' },
+    { name: 'Firstname' },
+    { name: 'Lastname' },
+    { name: 'Aksi' },
   ];
 
   useEffect(() => {
@@ -147,7 +147,7 @@ const User = () => {
 
   const goToEdit = (id: number) => {
     localStorage.setItem(
-      "userById",
+      'userById',
       JSON.stringify(user.find((item: any) => item.id === id))
     );
   };
@@ -168,34 +168,34 @@ const User = () => {
   };
 
   const onClickArrow = (direction: string) => {
-    if (direction === "left") {
+    if (direction === 'left') {
       setCurrentPage(currentPage - 1);
-      setOffset((currentPage) * limit);
+      setOffset(currentPage * limit);
     }
-    if (direction === "right") {
+    if (direction === 'right') {
       setCurrentPage(currentPage + 1);
-      setOffset((currentPage) * limit);
+      setOffset(currentPage * limit);
     }
   };
 
   const buttonRender = () => {
-    let buttons = []
-    for(let i = startIndex; i <= endIndex; i++) {
+    let buttons = [];
+    for (let i = startIndex; i <= endIndex; i++) {
       buttons.push(
         <button
-        className={
-          currentPage === i
-            ? "bg-purple-500 transition-all px-2 shadow-md rounded-md text-white"
-            : "px-3"
-        }
-        onClick={() => onClickPage(i)}
-      >
-        {i}
-      </button>
-      )
+          className={
+            currentPage === i
+              ? 'bg-purple-500 transition-all px-2 shadow-md rounded-md text-white'
+              : 'px-3'
+          }
+          onClick={() => onClickPage(i)}
+        >
+          {i}
+        </button>
+      );
     }
-    return buttons
-  }
+    return buttons;
+  };
   // console.log(current);
   return (
     <>
@@ -208,7 +208,7 @@ const User = () => {
           remove={deleteData}
         />
       ) : (
-        ""
+        ''
       )}
       <Content
         title="users"
@@ -222,25 +222,25 @@ const User = () => {
             <div className="flex">
               <button
                 onClick={() => {
-                  currentPage === 1 ? setCurrentPage(1) : onClickArrow("left");
+                  currentPage === 1 ? setCurrentPage(1) : onClickArrow('left');
                 }}
               >
                 <ChevronLeftIcon
-                  style={{ width: "18px", marginRight: "10px" }}
+                  style={{ width: '18px', marginRight: '10px' }}
                 />
               </button>
 
-                  {buttonRender()}
+              {buttonRender()}
 
               <button
                 onClick={() => {
                   currentPage === totalPage
                     ? setCurrentPage(totalPage)
-                    : onClickArrow("right");
+                    : onClickArrow('right');
                 }}
               >
                 <ChevronRightIcon
-                  style={{ width: "18px", marginRight: "10px" }}
+                  style={{ width: '18px', marginRight: '10px' }}
                 />
               </button>
             </div>
@@ -259,7 +259,7 @@ const User = () => {
           <table className="min-w-full table-fixed ">
             <thead>
               <tr>
-                {(columns || []).map((col) => (
+                {(columns || []).map(col => (
                   <th className="pr-6 py-4 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
                     <span className="">{col.name}</span>
                   </th>
@@ -305,8 +305,8 @@ const User = () => {
                                   onClick={() => goToEdit(data.id)}
                                   className={`${
                                     active
-                                      ? "bg-violet-500 text-white"
-                                      : "text-gray-900"
+                                      ? 'bg-violet-500 text-white'
+                                      : 'text-gray-900'
                                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                 >
                                   {active ? (
@@ -330,8 +330,8 @@ const User = () => {
                                   onClick={() => getWhatToDelete(data)}
                                   className={`${
                                     active
-                                      ? "bg-violet-500 text-white"
-                                      : "text-gray-900"
+                                      ? 'bg-violet-500 text-white'
+                                      : 'text-gray-900'
                                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                 >
                                   {active ? (

@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from "react";
-import Content from "../content";
-import { useDispatch, useSelector } from "react-redux";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import ConfirmDelete from "../ConfirmDelete";
+import React, { useEffect, useState } from 'react';
+import Content from '../content';
+import { useDispatch, useSelector } from 'react-redux';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import ConfirmDelete from '../ConfirmDelete';
 import {
   doDeleteProduct,
   doRequestGetProduct,
-} from "../redux/action/ActionReducer";
-import { toast } from "react-toastify";
+} from '../redux/action/ActionReducer';
+import { toast } from 'react-toastify';
 
 const Product = () => {
   const router = useRouter();
   const [isDelete, setIsDelete] = useState(false);
   const [whatToDelete, setWhatToDelete] = useState();
-  
+
   const dispatch = useDispatch();
-  
+
   let { products, message, refresh } = useSelector(
     (state: any) => state.productReducers
-    );
-    const productList: any[] = Array.isArray(products) ? products : [];
+  );
+  const productList: any[] = Array.isArray(products) ? products : [];
 
-  const goToEdit = (item:any) => {
-    localStorage.setItem('productById',JSON.stringify(item))
-    router.push('products/edit-products')
-  }
+  const goToEdit = (item: any) => {
+    localStorage.setItem('productById', JSON.stringify(item));
+    router.push('products/edit-products');
+  };
 
   useEffect(() => {
     if (message) {
@@ -62,10 +62,7 @@ const Product = () => {
               <p className="overflow-hidden">{item.description}</p>
             </div>
             <div className="flex gap-4 justify-between">
-              <button
-                className="text-blue-500"
-                onClick={()=>goToEdit(item)}
-              >
+              <button className="text-blue-500" onClick={() => goToEdit(item)}>
                 edit
               </button>
 
@@ -93,7 +90,7 @@ const Product = () => {
           remove={deleteDataa}
         />
       ) : (
-        ""
+        ''
       )}
     </Content>
   );

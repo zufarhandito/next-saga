@@ -1,38 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Bars3CenterLeftIcon,
   PencilIcon,
   ChevronDownIcon,
   Cog8ToothIcon,
-} from "@heroicons/react/24/solid";
-import { useRouter } from "next/router";
-import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
-import { Menu, Transition } from "@headlessui/react";
+} from '@heroicons/react/24/solid';
+import { useRouter } from 'next/router';
+import { ArrowLeftOnRectangleIcon } from '@heroicons/react/24/outline';
+import { Menu, Transition } from '@headlessui/react';
 
 const Nav = ({ showNav, setShowNav }: any) => {
-  const router = useRouter()
-  const [username, setUserName] = useState('')
-  const [firstname, setFirstName] = useState('')
-  const [lastname, setLastName] = useState('')
+  const router = useRouter();
+  const [username, setUserName] = useState('');
+  const [firstname, setFirstName] = useState('');
+  const [lastname, setLastName] = useState('');
 
   const handleLogout = () => {
-    localStorage.clear()
-    router.push("/login");
+    localStorage.clear();
+    router.push('/login');
   };
 
-  useEffect(()=>{
-    const token = localStorage.getItem('userData')
-    if(token) {
-      const userData = JSON.parse(token)
-      setUserName(userData.username)
-      setFirstName(userData.firstname)
-      setLastName(userData.lastname)
+  useEffect(() => {
+    const token = localStorage.getItem('userData');
+    if (token) {
+      const userData = JSON.parse(token);
+      setUserName(userData.username);
+      setFirstName(userData.firstname);
+      setLastName(userData.lastname);
     }
-  },[])
+  }, []);
   return (
     <div
       className={`fixed w-full z-10 h-16 flex justify-between bg-white bg-opacity-25 backdrop-blur-md shadow-sm items-center transition-all duration-[400ms] ${
-        showNav ? "pl-56" : ""
+        showNav ? 'pl-56' : ''
       }`}
     >
       <div className="pl-4 md:pl-16">
@@ -52,7 +52,9 @@ const Nav = ({ showNav, setShowNav }: any) => {
                   alt="profile picture"
                 />
               </picture>
-              <span className="hidden md:block font-medium text-gray-700">{username}</span>
+              <span className="hidden md:block font-medium text-gray-700">
+                {username}
+              </span>
               <ChevronDownIcon className="ml-2 h-4 w-4 text-gray-700" />
             </Menu.Button>
           </div>
@@ -68,9 +70,7 @@ const Nav = ({ showNav, setShowNav }: any) => {
             <Menu.Items className="absolute right-0 w-content z-50 mt-2 origin-top-right bg-white rounded shadow-sm">
               <div className="p-1">
                 <Menu.Item>
-                  <button
-                    className="flex w-full hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center"
-                  >
+                  <button className="flex w-full hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center">
                     <PencilIcon className="h-4 w-4 mr-2" />
                     Edit
                   </button>

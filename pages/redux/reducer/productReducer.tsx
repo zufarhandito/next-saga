@@ -1,9 +1,9 @@
-import ActionTypes from "../action/ActionTypes";
+import ActionTypes from '../action/ActionTypes';
 
 const initialState = {
   products: [],
-  message: "",
-  refresh: "",
+  message: '',
+  refresh: '',
 };
 
 function productReducers(state = initialState, action: any) {

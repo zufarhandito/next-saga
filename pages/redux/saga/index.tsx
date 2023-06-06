@@ -1,5 +1,5 @@
-import { takeEvery, all } from "redux-saga/effects";
-import ActionTypes from "../action/ActionTypes";
+import { takeEvery, all } from 'redux-saga/effects';
+import ActionTypes from '../action/ActionTypes';
 import {
   handleGetAllUser,
   handleAddUser,
@@ -13,7 +13,7 @@ import {
   handleUpdateProduct,
   handleGetProductById,
   handletGetUserPage,
-} from "./userSaga";
+} from './userSaga';
 
 function* watchAll() {
   yield all([

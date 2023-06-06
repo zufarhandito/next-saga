@@ -1,8 +1,8 @@
-import ActionTypes from "../action/ActionTypes";
+import ActionTypes from '../action/ActionTypes';
 
 let initialState = {
-  token: "",
-  message: "",
+  token: '',
+  message: '',
   status: 0,
 };
 

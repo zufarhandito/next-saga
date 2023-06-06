@@ -1,5 +1,5 @@
-import React, { Fragment } from "react";
-import { Transition, Dialog } from "@headlessui/react";
+import React, { Fragment } from 'react';
+import { Transition, Dialog } from '@headlessui/react';
 
 const ConfirmDelete = (props: any) => {
   return (
@@ -38,7 +38,7 @@ const ConfirmDelete = (props: any) => {
                 <div className="mt-2">
                   <p className="text-sm text-gray-500">
                     <div>
-                      apakah anda yakin untuk menghapus {props.table}{" "}
+                      apakah anda yakin untuk menghapus {props.table}{' '}
                       {props.name} dengan id {props.id}
                     </div>
                   </p>

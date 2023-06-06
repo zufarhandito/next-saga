@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
-import { doAdd } from "./redux/action/ActionReducer";
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { doAdd } from './redux/action/ActionReducer';
 
 const register = () => {
   let { message } = useSelector((state: any) => state.userReducers);
@@ -64,7 +64,7 @@ const register = () => {
                 className="p-3 w-full bg-slate-100 rounded my-2"
                 type="text"
                 placeholder="username"
-                {...register("username", { required: "Username is empty" })}
+                {...register('username', { required: 'Username is empty' })}
               />
               <p className="text-red-500">
                 {errors?.username && errors.username.message}
@@ -74,7 +74,7 @@ const register = () => {
                 className="p-3 w-full bg-slate-100 rounded my-2"
                 type="password"
                 placeholder="Password"
-                {...register("password", { required: "Password is empty" })}
+                {...register('password', { required: 'Password is empty' })}
               />
               <p className="text-red-500">
                 {errors?.password && errors.password.message}
@@ -84,11 +84,11 @@ const register = () => {
                 className="p-3 w-full bg-slate-100 rounded my-2"
                 type="password"
                 placeholder="Confirm Password"
-                {...register("confirmPassword", {
-                  required: "Repeat your password",
+                {...register('confirmPassword', {
+                  required: 'Repeat your password',
                   validate: (val: string) => {
-                    if (watch("password") != val) {
-                      return "Password tidak sama!";
+                    if (watch('password') != val) {
+                      return 'Password tidak sama!';
                     }
                   },
                 })}
@@ -102,7 +102,7 @@ const register = () => {
                   className="p-3 w-1/2 bg-slate-100 rounded my-2"
                   type="text"
                   placeholder="First Name"
-                  {...register("firstname", { required: "Firstname is empty" })}
+                  {...register('firstname', { required: 'Firstname is empty' })}
                 />
                 <p className="text-red-500">
                   {errors?.firstname && errors.firstname.message}
@@ -112,7 +112,7 @@ const register = () => {
                   className="p-3 w-1/2 bg-slate-100 rounded my-2"
                   type="text"
                   placeholder="Last Name"
-                  {...register("lastname", { required: "Lastname is empty" })}
+                  {...register('lastname', { required: 'Lastname is empty' })}
                 />
                 <p className="text-red-500">
                   {errors?.firstname && errors.firstname.message}
@@ -133,10 +133,10 @@ const register = () => {
               />
               <div className="flex w-full justify-center  ">
                 <p className="text-sm">
-                  Already have an account?{" "}
+                  Already have an account?{' '}
                   <Link href="/login" className="text-blue-500 font-bold">
                     Login
-                  </Link>{" "}
+                  </Link>{' '}
                 </p>
               </div>
             </form>

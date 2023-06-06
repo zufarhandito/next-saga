@@ -1,11 +1,11 @@
-import ActionTypes from "../action/ActionTypes";
+import ActionTypes from '../action/ActionTypes';
 
 const initialState = {
   user: [],
-  message: "",
+  message: '',
   status: 0,
-  refresh: "",
-  jumlah: "",
+  refresh: '',
+  jumlah: '',
 };
 
 function userReducers(state = initialState, action: any) {

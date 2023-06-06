@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
-import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 const EditProduct = () => {
   let { products, message, refresh } = useSelector(
@@ -29,20 +29,20 @@ const EditProduct = () => {
   }, []);
 
   const registerOptions = {
-    name: { required: "Name is required" },
-    category_id: { required: "Category is required" },
-    price: { required: "Price is required" },
-    image: { required: "Image is required" },
-    description: { required: "Description is required" },
+    name: { required: 'Name is required' },
+    category_id: { required: 'Category is required' },
+    price: { required: 'Price is required' },
+    image: { required: 'Image is required' },
+    description: { required: 'Description is required' },
   };
 
   const handleRegistration = async (data: any) => {
     const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("image", data.image[0]);
-    formData.append("category_id", data.category_id);
-    formData.append("description", data.description);
-    formData.append("price", data.price);
+    formData.append('name', data.name);
+    formData.append('image', data.image[0]);
+    formData.append('category_id', data.category_id);
+    formData.append('description', data.description);
+    formData.append('price', data.price);
     // formData.append('id', filteredProduct?.id);
     // console.log();
     // console.log(...formData);
@@ -63,7 +63,7 @@ const EditProduct = () => {
         onSubmit={handleSubmit(handleRegistration, handleError)}
       >
         <div className="w-1/2">
-          <input type="file" {...register("image")} name="image" id="image" />
+          <input type="file" {...register('image')} name="image" id="image" />
         </div>
 
         <div className="w-1/2">
@@ -78,7 +78,7 @@ const EditProduct = () => {
                             focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               type="text"
               //   name="name"
-              {...register("name", registerOptions.name)}
+              {...register('name', registerOptions.name)}
             />
             <p className="text-red-500">
               {/* {errors?.name && errors.name.message} */}
@@ -95,7 +95,7 @@ const EditProduct = () => {
                             focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               type="number"
               //   name="category_id"
-              {...register("category_id", registerOptions.category_id)}
+              {...register('category_id', registerOptions.category_id)}
             />
             <p className="text-red-500">
               {/* {errors?.category_id && errors.category_id.message} */}
@@ -113,7 +113,7 @@ const EditProduct = () => {
                             focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               // type="text"
               //   name="price"
-              {...register("price", registerOptions.price)}
+              {...register('price', registerOptions.price)}
             />
             <p className="text-red-500">
               {/* {errors?.price && errors.price.message} */}
@@ -126,7 +126,7 @@ const EditProduct = () => {
             <textarea
               //   defaultValue={filteredProduct.description}
               className="mt-1 block border h-auto w-full border-slate-300 rounded-md text-sm shadow-sm"
-              {...register("description")}
+              {...register('description')}
             ></textarea>
             <p className="text-red-500">
               {/* {errors?.description && errors.description.message} */}

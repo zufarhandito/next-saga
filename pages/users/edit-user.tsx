@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
-import "react-toastify/dist/ReactToastify.css";
-import { useDispatch } from "react-redux";
-import { doUpdate } from "../redux/action/ActionReducer";
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
+import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
+import { doUpdate } from '../redux/action/ActionReducer';
 
 const EditUser = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState('');
 
   const {
     register,
@@ -21,27 +21,27 @@ const EditUser = () => {
     data.id = user.id;
     dispatch(doUpdate(data));
     // console.log(data);
-    router.push("/users");
+    router.push('/users');
   };
 
   const handleError = (errors: any) => {};
 
   const registerOptions = {
-    username: { required: "Username is required" },
-    firstname: { required: "Firstname is required" },
-    lastname: { required: "Lastname is required" },
+    username: { required: 'Username is required' },
+    firstname: { required: 'Firstname is required' },
+    lastname: { required: 'Lastname is required' },
     password: {
       required: false,
       validate: (val: string) => {
         if (val && val.length < 8) {
-          return "Password setidaknya 8 characters";
+          return 'Password setidaknya 8 characters';
         }
       },
     },
   };
 
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem("userById")));
+    setUser(JSON.parse(localStorage.getItem('userById')));
 
     let defaultValue: any = {};
     defaultValue.username = user.username;
@@ -69,7 +69,7 @@ const EditUser = () => {
                             focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
               type="text"
               //   name="username"
-              {...register("username", registerOptions.username)}
+              {...register('username', registerOptions.username)}
             />
             <p className="text-red-500">
               {errors?.username && errors.username.message}
@@ -90,7 +90,7 @@ const EditUser = () => {
                             focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
               type="text"
               //   name="password"
-              {...register("password", registerOptions.password)}
+              {...register('password', registerOptions.password)}
             />
             <p className="text-red-500">
               {errors?.password && errors.password.message}
@@ -112,7 +112,7 @@ const EditUser = () => {
                             invalid:border-pink-500 invalid:text-pink-600
                             focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                 // name="firstname"
-                {...register("firstname", registerOptions.firstname)}
+                {...register('firstname', registerOptions.firstname)}
               />
               <p className="text-red-500">
                 {/* {errors?.firstname && errors.firstname.message} */}
@@ -133,7 +133,7 @@ const EditUser = () => {
                             invalid:border-pink-500 invalid:text-pink-600
                             focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                 // name="lastname"
-                {...register("lastname", registerOptions.lastname)}
+                {...register('lastname', registerOptions.lastname)}
               />
               <p className="text-red-500">
                 {/* {errors?.lastname && errors.lastname.message} */}
