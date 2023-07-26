@@ -19,15 +19,15 @@ const Sidebar = forwardRef(({ }, ref: LegacyRef<HTMLDivElement>) => {
   };
 
   const listMenu = [
-    { to: '/', path: '/', icon: <HiHome />, name: 'Home' },
-    { to: '/users', path: '/users', icon: <HiUser />, name: 'User' },
+    { to: '/', path: '/', icon: <HiHome className='w-5 h-5' />, name: 'Home' },
+    { to: '/users', path: '/users', icon: <HiUser className='w-5 h-5' />, name: 'User' },
     {
       to: '/categories',
       path: '/categories',
-      icon: <HiTag />,
+      icon: <HiTag className='w-5 h-5' />,
       name: 'Category',
     },
-    { to: '/products', path: '/products', icon: <HiCube />, name: 'Product' },
+    { to: '/products', path: '/products', icon: <HiCube className='w-5 h-5' />, name: 'Product' },
   ];
 
   return (
@@ -48,7 +48,7 @@ const Sidebar = forwardRef(({ }, ref: LegacyRef<HTMLDivElement>) => {
                 }`}
             >
               <div className="flex">
-                <div className="w-5 mr-4">{arr.icon}</div>
+                <div className="mr-6">{arr.icon}</div>
                 <div>{arr.name}</div>
               </div>
             </div>
