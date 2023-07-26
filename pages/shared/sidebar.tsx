@@ -2,15 +2,13 @@ import React, { LegacyRef, forwardRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import {
-  HomeIcon,
-  UserIcon,
-  TagIcon,
-  CubeIcon,
-} from '@heroicons/react/24/solid';
+import { HiHome, HiCube, HiUser, HiTag } from 'react-icons/hi'
+
 import Cookies from 'js-cookie';
 
-const Sidebar = forwardRef(({}, ref: LegacyRef<HTMLDivElement>) => {
+/* eslint-disable */
+
+const Sidebar = forwardRef(({ }, ref: LegacyRef<HTMLDivElement>) => {
   const router = useRouter();
   const handleLogout = () => {
     Cookies.remove('access_token');
@@ -21,15 +19,15 @@ const Sidebar = forwardRef(({}, ref: LegacyRef<HTMLDivElement>) => {
   };
 
   const listMenu = [
-    { to: '/', path: '/', icon: <HomeIcon />, name: 'Home' },
-    { to: '/users', path: '/users', icon: <UserIcon />, name: 'User' },
+    { to: '/', path: '/', icon: <HiHome />, name: 'Home' },
+    { to: '/users', path: '/users', icon: <HiUser />, name: 'User' },
     {
       to: '/categories',
       path: '/categories',
-      icon: <TagIcon />,
+      icon: <HiTag />,
       name: 'Category',
     },
-    { to: '/products', path: '/products', icon: <CubeIcon />, name: 'Product' },
+    { to: '/products', path: '/products', icon: <HiCube />, name: 'Product' },
   ];
 
   return (
@@ -44,11 +42,10 @@ const Sidebar = forwardRef(({}, ref: LegacyRef<HTMLDivElement>) => {
         {listMenu.map(arr => (
           <Link href={`${arr.to}`}>
             <div
-              className={`pl-6 py-3 rounded text-center cursor-pointer mb-3 flex items-center transition-colors ${
-                router.pathname === arr.path
-                  ? 'bg-purple-100 text-purple-500'
-                  : 'text-gray-400 hover:bg-purple-100 hover:text-purple-500'
-              }`}
+              className={`pl-6 py-3 rounded text-center cursor-pointer mb-3 flex items-center transition-colors ${router.pathname === arr.path
+                ? 'bg-purple-100 text-purple-500'
+                : 'text-gray-400 hover:bg-purple-100 hover:text-purple-500'
+                }`}
             >
               <div className="flex">
                 <div className="w-5 mr-4">{arr.icon}</div>

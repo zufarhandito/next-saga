@@ -2,7 +2,6 @@ import React, { useEffect, useState, Fragment } from 'react';
 import Content from '../content';
 import { Menu, Transition } from '@headlessui/react';
 import ConfirmDelete from '../ConfirmDelete';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,6 +14,7 @@ import {
   doRequestGetUserPage,
 } from '../redux/action/ActionReducer';
 import Pagination from '../pagination';
+import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
 
 function EditInactiveIcon(props: any) {
   return (
@@ -225,7 +225,7 @@ const User = () => {
                   currentPage === 1 ? setCurrentPage(1) : onClickArrow('left');
                 }}
               >
-                <ChevronLeftIcon
+                <HiChevronLeft
                   style={{ width: '18px', marginRight: '10px' }}
                 />
               </button>
@@ -239,7 +239,7 @@ const User = () => {
                     : onClickArrow('right');
                 }}
               >
-                <ChevronRightIcon
+                <HiChevronRight
                   style={{ width: '18px', marginRight: '10px' }}
                 />
               </button>
@@ -303,11 +303,10 @@ const User = () => {
                               {({ active }) => (
                                 <button
                                   onClick={() => goToEdit(data.id)}
-                                  className={`${
-                                    active
-                                      ? 'bg-violet-500 text-white'
-                                      : 'text-gray-900'
-                                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                  className={`${active
+                                    ? 'bg-violet-500 text-white'
+                                    : 'text-gray-900'
+                                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                 >
                                   {active ? (
                                     <EditActiveIcon
@@ -328,11 +327,10 @@ const User = () => {
                               {({ active }) => (
                                 <button
                                   onClick={() => getWhatToDelete(data)}
-                                  className={`${
-                                    active
-                                      ? 'bg-violet-500 text-white'
-                                      : 'text-gray-900'
-                                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                  className={`${active
+                                    ? 'bg-violet-500 text-white'
+                                    : 'text-gray-900'
+                                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                 >
                                   {active ? (
                                     <DeleteActiveIcon

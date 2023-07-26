@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Bars3CenterLeftIcon,
-  PencilIcon,
-  ChevronDownIcon,
-  Cog8ToothIcon,
-} from '@heroicons/react/24/solid';
 import { useRouter } from 'next/router';
-import { ArrowLeftOnRectangleIcon } from '@heroicons/react/24/outline';
 import { Menu, Transition } from '@headlessui/react';
+import { HiArrowLeft, HiChevronDown, HiOutlineMenu, HiPencil } from 'react-icons/hi';
 
 const Nav = ({ showNav, setShowNav }: any) => {
   const router = useRouter();
@@ -31,12 +25,11 @@ const Nav = ({ showNav, setShowNav }: any) => {
   }, []);
   return (
     <div
-      className={`fixed w-full z-10 h-16 flex justify-between bg-white bg-opacity-25 backdrop-blur-md shadow-sm items-center transition-all duration-[400ms] ${
-        showNav ? 'pl-56' : ''
-      }`}
+      className={`fixed w-full z-10 h-16 flex justify-between bg-white bg-opacity-25 backdrop-blur-md shadow-sm items-center transition-all duration-[400ms] ${showNav ? 'pl-56' : ''
+        }`}
     >
       <div className="pl-4 md:pl-16">
-        <Bars3CenterLeftIcon
+        <HiOutlineMenu
           className="h-8 w-8 text-gray-700 cursor-pointer"
           onClick={() => setShowNav(!showNav)}
         />
@@ -55,7 +48,7 @@ const Nav = ({ showNav, setShowNav }: any) => {
               <span className="hidden md:block font-medium text-gray-700">
                 {username}
               </span>
-              <ChevronDownIcon className="ml-2 h-4 w-4 text-gray-700" />
+              <HiChevronDown className="ml-2 h-4 w-4 text-gray-700" />
             </Menu.Button>
           </div>
           <Transition
@@ -71,7 +64,7 @@ const Nav = ({ showNav, setShowNav }: any) => {
               <div className="p-1">
                 <Menu.Item>
                   <button className="flex w-full hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center">
-                    <PencilIcon className="h-4 w-4 mr-2" />
+                    <HiPencil className="h-4 w-4 mr-2" />
                     Edit
                   </button>
                 </Menu.Item>
@@ -80,7 +73,7 @@ const Nav = ({ showNav, setShowNav }: any) => {
                     onClick={handleLogout}
                     className="flex w-full hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center"
                   >
-                    <ArrowLeftOnRectangleIcon className="h-4 w-4 mr-2" />
+                    <HiArrowLeft className="h-4 w-4 mr-2" />
                     Logout
                   </button>
                 </Menu.Item>

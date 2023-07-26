@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { doUpdateProduct } from '../redux/action/ActionReducer';
 
 const EditProduct = () => {
-  const [productById, setProductById] = useState('');
+  const [productById, setProductById] = useState<any>('');
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -52,7 +52,7 @@ const EditProduct = () => {
     router.push('/products');
   };
 
-  const handleError = () => {};
+  const handleError = () => { };
 
   return (
     <div className="bg-white py-14 rounded-md px-5">
